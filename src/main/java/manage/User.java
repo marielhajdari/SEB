@@ -9,18 +9,20 @@ import java.sql.ResultSet;
 public class User {
     private String _username;
     private String _pwd;
-    private String _name;
     private int _elo;
     private boolean _isLogged;
     private boolean _participating;
 
-    public User(String _username, String _pwd, String _name, int _elo, boolean _isLogged, boolean _participating) {
+    public User(String _username, String _pwd, int _elo, boolean _isLogged, boolean _participating) {
         this._username = _username;
         this._pwd = _pwd;
-        this._name = _name;
         this._elo = _elo;
         this._isLogged = _isLogged;
         this._participating = _participating;
+    }
+
+    public String get_username() {
+        return _username;
     }
 
     public boolean registerUser(String username, String pwd) {
