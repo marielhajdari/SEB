@@ -12,19 +12,19 @@ CREATE TABLE users (
 );
 
 CREATE TABLE history(
-    entryid integer NOT NULL PRIMARY KEY,
+    entryid serial NOT NULL PRIMARY KEY,
     countPushUps integer, 
     durationInSeconds integer,
     usr_name text REFERENCES users(username)
 );
 
 CREATE TABLE tournament(
-    id integer NOT NULL PRIMARY KEY,
+    id serial NOT NULL PRIMARY KEY,
     isActive boolean NOT NULL DEFAULT true
 );
 
 CREATE TABLE tourParticipants(
-    participantID integer PRIMARY KEY,
+    participantID serial PRIMARY KEY,
     totalPushUps integer,
     participantName text REFERENCES users(username),
     tourId integer REFERENCES tournament(id)

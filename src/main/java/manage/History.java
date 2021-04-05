@@ -1,7 +1,8 @@
 package manage;
 
+//import com.fasterxml.jackson.core.JsonProcessingException;
 import database.DBConnection;
-
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -41,12 +42,24 @@ public class History {
     }
 
     // methods
-    public boolean addEntry(User user){
+    public boolean addEntry(User user) {
         try {
             Connection db = DBConnection.getInstance().getConnection();
-        }catch (SQLException e) {
+            PreparedStatement ps = db.prepareStatement("INSERT into history(countPushUps, durationsInSeconds, usr_name) VALUES(?,?,?)");
+            ps.setInt(1, get_countPushUps());
+            ps.setInt(2, get_duration());
+            ps.setString(3, user.get_username());
+            int affectedRows = ps.executeUpdate();
+            ps.close();
+            db.close();
+            if (affectedRows == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
         return false;
     }
 }
