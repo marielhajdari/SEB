@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS tournament CASCADE;
+DROP TABLE IF EXISTS tourParticipants CASCADE;
 DROP TABLE IF EXISTS history CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
@@ -11,16 +12,20 @@ CREATE TABLE users (
 );
 
 CREATE TABLE history(
-    entryid integer NOT NULL,
+    entryid integer NOT NULL PRIMARY KEY,
     countPushUps integer, 
     durationInSeconds integer,
     usr_name text REFERENCES users(username)
 );
 
-
 CREATE TABLE tournament(
-    id integer NOT NULL,
-    participantName text REFERENCES users(username),
-    totalPushUps integer,
+    id integer NOT NULL PRIMARY KEY,
     isActive boolean NOT NULL DEFAULT true
+);
+
+CREATE TABLE tourParticipants(
+    participantID integer PRIMARY KEY,
+    totalPushUps integer,
+    participantName text REFERENCES users(username),
+    tourId integer REFERENCES tournament(id)
 );
