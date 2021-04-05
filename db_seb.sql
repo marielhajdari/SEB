@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
     username text PRIMARY KEY,
     pwd text NOT NULL,
-    name text,
     elo integer NOT NULL DEFAULT 100,
     logged boolean NOT NULL DEFAULT false,
     participating boolean NOT NULL DEFAULT false
@@ -14,7 +13,7 @@ CREATE TABLE users (
 CREATE TABLE history(
     entryid integer NOT NULL,
     countPushUps integer, 
-    duration time,
+    durationInSeconds integer,
     usr_name text REFERENCES users(username)
 );
 
