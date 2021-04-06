@@ -18,7 +18,7 @@ public class User {
     private boolean _participating;
 
     public User() {
-        this._username = "username";
+        this._username = "mariel";
         this._pwd = "pwd";
         this._elo = 100;
         this._isLogged = false;
@@ -156,6 +156,21 @@ public class User {
         }
     }
 
+    public String showHistory(String uname){
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM history where usr_name = ?;");
+            ps.setString(1,uname);
+            String json = resultHistory2Json(ps.executeQuery());
+            ps.close();
+            conn.close();
+            return json;
+        } catch (SQLException | JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private String result2Json(ResultSet rs) throws SQLException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
@@ -169,5 +184,21 @@ public class User {
         }
         rs.close();
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
+    }
+
+    private String resultHistory2Json(ResultSet rs) throws SQLException, JsonProcessingException {
+        ObjectMapper mapp = new ObjectMapper();
+        ArrayNode aNode = mapp.createArrayNode();
+        while (rs.next()){
+            ObjectNode on = mapp.createObjectNode();
+            on.put("EntryID:",rs.getInt(1));
+            //on.put("Elo:",rs.getInt(2));
+            on.put("PushUps:",rs.getInt(2));
+            on.put("Duration:",rs.getInt(3));
+            on.put("Name:",rs.getString(4));
+            aNode.add(on);
+        }
+        rs.close();
+        return mapp.writerWithDefaultPrettyPrinter().writeValueAsString(aNode);
     }
 }

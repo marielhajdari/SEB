@@ -19,8 +19,8 @@ public class ReadRequest {
     private boolean _http_first_line = true;
     private Socket _clientSocket;
 
-    private final String[] _allowedReq = {"users", "sessions", "packages", "transactions", "cards", "deck", "stats", "score", "battles", "tradings", "deck?format=plain"};
-    //private final String[] _allowedReq = {"users", "sessions", "stats", "score", "history", "tournament",};
+    //private final String[] _allowedReq = {"users", "sessions", "packages", "transactions", "cards", "deck", "stats", "score", "battles", "tradings", "deck?format=plain"};
+    private final String[] _allowedReq = {"users", "sessions", "stats", "score", "history", "tournament",};
 
     public ReadRequest(){
 

@@ -1,5 +1,6 @@
 package server;
 
+import manage.History;
 import manage.User;
 
 import java.io.BufferedWriter;
@@ -10,6 +11,10 @@ import java.net.Socket;
 public class RespondRequest {
 
     User u = new User();
+    History h = new History();
+
+
+
     private BufferedWriter _out;
 
     public RespondRequest(Socket clientSocket) throws IOException {
@@ -31,13 +36,13 @@ public class RespondRequest {
             case 2 -> u.loginUser(u.get_username(), "1234");
             case 5 -> System.out.println(u.showUserStats("username"));
             case 6 -> System.out.println(u.score());
-            /*case 3 -> savePackage(_payload);
-            case 4 -> buyPackage();
-            case 5 -> showStack();
+            case 7 -> System.out.println(u.showHistory("username"));
+            case 9 -> h.addEntry("mariel", 20, 40);
+            /*case 3 -> ;
+            case 4 -> ;
 
-            case 7 -> configureDeck();
-            case 8 -> showDeckOther();
-            case 9 -> showUserData();
+            case 8 -> s;
+
             */
         }
         _out.flush();
