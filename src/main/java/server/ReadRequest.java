@@ -134,15 +134,7 @@ public class ReadRequest {
                 }else if(_command[1].equals("history") && _myVerb == CURLY.POST){
                     return 9;
                 }
-                /*if (_command.length == 3) {
-                    if (_command[1].equals("transactions") && _command[2].equals("packages")) {
-                        if (_myVerb == CURLY.POST) {
-                            return 4;
-                        }
-                    } else {
-                        return 0;
-                    }
-                }*/
+
             }
         }
         return 0;

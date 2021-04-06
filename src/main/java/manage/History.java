@@ -204,4 +204,28 @@ public class History {
             e.printStackTrace();
         }
     }
+
+    public String tourScoreboard(){
+        try {
+            Connection db = DBConnection.getInstance().getConnection();
+            PreparedStatement ps = db.prepareStatement("SELECT * from tourParticipants order by totalPushUps desc");
+            ResultSet rs = ps.executeQuery();
+            ObjectMapper mapper = new ObjectMapper();
+            ArrayNode arrayNode = mapper.createArrayNode();
+            while (rs.next()){
+                ObjectNode on = mapper.createObjectNode();
+                on.put("participant ID :",rs.getInt(1));
+                //on.put("Elo:",rs.getInt(2));
+                on.put("Name:",rs.getString(3));
+                on.put("Total PushUps:",rs.getInt(2));
+                on.put("Tour ID :",rs.getInt(4));
+                arrayNode.add(on);
+            }
+            rs.close();
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
+        } catch (SQLException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

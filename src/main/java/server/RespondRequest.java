@@ -38,6 +38,7 @@ public class RespondRequest {
             case 6 -> System.out.println(u.score());
             case 7 -> System.out.println(u.showHistory("username"));
             case 9 -> h.addEntry("mariel", 20, 40);
+            case 8 -> System.out.println(h.tourScoreboard());
             /*case 3 -> ;
             case 4 -> ;
 
