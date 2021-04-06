@@ -33,7 +33,7 @@ public class ReadRequest {
         this._clientSocket = clientSocket;
     }
 
-    protected void setMyCurl(String myCurl) {
+    public CURLY setMyCurl(String myCurl) {
         switch (myCurl) {
             case "GET" -> _myVerb = CURLY.GET;
             case "POST" -> _myVerb = CURLY.POST;
@@ -41,6 +41,7 @@ public class ReadRequest {
             case "DELETE" -> _myVerb = CURLY.DELETE;
             default -> _myVerb = CURLY.NOT_VALID;
         }
+        return _myVerb;
     }
 
     private void separateMessage() {

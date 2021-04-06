@@ -29,7 +29,7 @@ public class User {
         return _username;
     }
 
-    public void registerUser(String username, String pwd) {
+    public boolean registerUser(String username, String pwd) {
         try {
             Connection conn = DBConnection.getInstance().getConnection();
             PreparedStatement ps;
@@ -39,7 +39,7 @@ public class User {
             ps.close();
             if (!rs.next() || rs.getInt(1) > 0){
                 System.out.println("User already registered!!!");
-                return;
+                return false;
             }
             // no admin rights/ no token security (yet)
             /*if (username.equals("admin")){
@@ -53,14 +53,14 @@ public class User {
             int affectedRows = ps.executeUpdate();
             ps.close();
             conn.close();
-            return;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return false;
     }
 
-    public void loginUser(String username, String pwd){
+    public boolean loginUser(String username, String pwd){
         try {
             Connection conn = DBConnection.getInstance().getConnection();
             PreparedStatement ps = conn.prepareStatement("UPDATE users SET logged = TRUE WHERE username = ? AND pwd = ?;");
@@ -71,12 +71,13 @@ public class User {
             conn.close();
             if (affectedRows == 1) {
                 System.out.println("User is logged!!!");
-                return;
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
+            return false;
         }
+        return false;
     }
 
     public boolean logoutUser(String username, String pwd){
@@ -98,6 +99,20 @@ public class User {
         return false;
     }
 
+    public boolean logoutALLUsers(){
+        try{
+            Connection conn = DBConnection.getInstance().getConnection();
+            PreparedStatement ps = conn.prepareStatement("UPDATE users SET logged = FALSE WHERE logged = TRUE;");
+            ps.executeUpdate();
+
+            ps.close();
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean battleWon(){
         _elo+=2;
         return saveStats();
