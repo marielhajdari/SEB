@@ -28,8 +28,8 @@ public class RespondRequest {
         }
         switch (status) {
             case 1 -> u.registerUser(u.get_username(),"1234");
-            /*case 2 -> logInUser(_payload);
-            case 3 -> savePackage(_payload);
+            case 2 -> u.loginUser(u.get_username(), "1234");
+            /*case 3 -> savePackage(_payload);
             case 4 -> buyPackage();
             case 5 -> showStack();
             case 6 -> showDeck();

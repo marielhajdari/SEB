@@ -34,6 +34,7 @@ public class User {
             ResultSet rs = ps.executeQuery();
             ps.close();
             if (!rs.next() || rs.getInt(1) > 0){
+                System.out.println("User already registered!!!");
                 return;
             }
             // no admin rights/ no token security (yet)
@@ -55,7 +56,7 @@ public class User {
 
     }
 
-    public boolean loginUser(String username, String pwd){
+    public void loginUser(String username, String pwd){
         try {
             Connection conn = DBConnection.getInstance().getConnection();
             PreparedStatement ps = conn.prepareStatement("UPDATE users SET logged = TRUE WHERE username = ? AND pwd = ?;");
@@ -65,13 +66,13 @@ public class User {
             ps.close();
             conn.close();
             if (affectedRows == 1) {
-                return true;
+                System.out.println("User is logged!!!");
+                return;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return;
         }
-        return false;
     }
 
     public boolean logoutUser(String username, String pwd){
