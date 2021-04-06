@@ -142,6 +142,20 @@ public class User {
         }
     }
 
+    public String score (){
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(countPushUps), usr_name, sum(users.elo)/count(users.elo) FROM history join users on usr_name = users.username group by usr_name;");
+            String json = result2Json(ps.executeQuery());
+            ps.close();
+            conn.close();
+            return json;
+        } catch (SQLException | JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private String result2Json(ResultSet rs) throws SQLException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();

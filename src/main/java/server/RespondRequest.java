@@ -30,10 +30,11 @@ public class RespondRequest {
             case 1 -> u.registerUser(u.get_username(),"1234");
             case 2 -> u.loginUser(u.get_username(), "1234");
             case 5 -> System.out.println(u.showUserStats("username"));
+            case 6 -> System.out.println(u.score());
             /*case 3 -> savePackage(_payload);
             case 4 -> buyPackage();
             case 5 -> showStack();
-            case 6 -> showDeck();
+
             case 7 -> configureDeck();
             case 8 -> showDeckOther();
             case 9 -> showUserData();
