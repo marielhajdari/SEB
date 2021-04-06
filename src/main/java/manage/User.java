@@ -1,4 +1,8 @@
 package manage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.DBConnection;
 
 import java.sql.Connection;
@@ -121,5 +125,35 @@ public class User {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String showUserStats (String uname){
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(countPushUps), usr_name, sum(users.elo)/count(users.elo) FROM history join users on usr_name = ? group by usr_name;");
+            ps.setString(1,uname);
+            String json = result2Json(ps.executeQuery());
+            ps.close();
+            conn.close();
+            return json;
+        } catch (SQLException | JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String result2Json(ResultSet rs) throws SQLException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode arrayNode = mapper.createArrayNode();
+        while (rs.next()){
+            ObjectNode on = mapper.createObjectNode();
+            on.put("TotalPushUps:",rs.getInt(1));
+            //on.put("Elo:",rs.getInt(2));
+            on.put("Name:",rs.getString(2));
+            on.put("Elo:",rs.getInt(3));
+            arrayNode.add(on);
+        }
+        rs.close();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
     }
 }

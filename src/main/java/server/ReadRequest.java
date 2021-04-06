@@ -119,28 +119,22 @@ public class ReadRequest {
                     return 1;
                 }else if (_command[1].equals("sessions") && _myVerb == CURLY.POST) {
                     return 2;
-                }else if (_command[1].equals("packages") && _myVerb == CURLY.POST) {
+                }else if (_command[1].equals("users") && _myVerb == CURLY.GET) {
                     return 3;
-                }else if(_command[1].equals("cards") && _myVerb == CURLY.GET){
-                    return 5;
-                }else if(_command[1].equals("deck") && _myVerb == CURLY.GET){
-                    return 6;
-                }else if(_command[1].equals("deck") && _myVerb == CURLY.PUT){
-                    return 7;
-                }else if(_command[1].equals("deck?format=plain") && _myVerb == CURLY.GET){
-                    return 8;
-                }else if(_command[1].equals("users") && _myVerb == CURLY.GET){
-                    return 9;
-                }else if(_command[1].equals("users") && _myVerb == CURLY.PUT){
-                    return 10;
+                }else if (_command[1].equals("users") && _myVerb == CURLY.PUT) {
+                    return 4;
                 }else if(_command[1].equals("stats") && _myVerb == CURLY.GET){
-                    return 11;
+                    return 5;
                 }else if(_command[1].equals("score") && _myVerb == CURLY.GET){
-                    return 12;
-                }else if(_command[1].equals("battles") && _myVerb == CURLY.POST){
-                    return 13;
+                    return 6;
+                }else if(_command[1].equals("history") && _myVerb == CURLY.GET){
+                    return 7;
+                }else if(_command[1].equals("tournament") && _myVerb == CURLY.GET){
+                    return 8;
+                }else if(_command[1].equals("history") && _myVerb == CURLY.POST){
+                    return 9;
                 }
-                if (_command.length == 3) {
+                /*if (_command.length == 3) {
                     if (_command[1].equals("transactions") && _command[2].equals("packages")) {
                         if (_myVerb == CURLY.POST) {
                             return 4;
@@ -148,7 +142,7 @@ public class ReadRequest {
                     } else {
                         return 0;
                     }
-                }
+                }*/
             }
         }
         return 0;
