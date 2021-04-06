@@ -20,6 +20,7 @@ public class ReadRequest {
     private Socket _clientSocket;
 
     private final String[] _allowedReq = {"users", "sessions", "packages", "transactions", "cards", "deck", "stats", "score", "battles", "tradings", "deck?format=plain"};
+    //private final String[] _allowedReq = {"users", "sessions", "stats", "score", "history", "tournament",};
 
     public ReadRequest(){
 
@@ -99,17 +100,13 @@ public class ReadRequest {
     //0 - error occurred
     //1 - create account
     //2 - log in
-    //3 - add new package
-    //4 - buy package
-    //5 - show cards from user
-    //6 - show deck
-    //7 - configure deck
-    //8 - show deck other format
-    //9 - show users data
-    //10- set users data
-    //11- show users stats
-    //12- show scoreboard of user
-    //13- enter battle
+    //3 -
+    //4 - edit user
+    //5 - show user stats
+    //6 - score
+    //7 - show history
+    //8 - tournament scoreboard
+    //9 - add entry
     private int checkRequest() {
 
         //check if command is supported

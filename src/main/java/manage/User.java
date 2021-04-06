@@ -13,19 +13,19 @@ public class User {
     private boolean _isLogged;
     private boolean _participating;
 
-    public User(String _username, String _pwd, int _elo, boolean _isLogged, boolean _participating) {
-        this._username = _username;
-        this._pwd = _pwd;
-        this._elo = _elo;
-        this._isLogged = _isLogged;
-        this._participating = _participating;
+    public User() {
+        this._username = "username";
+        this._pwd = "pwd";
+        this._elo = 100;
+        this._isLogged = false;
+        this._participating = false;
     }
 
     public String get_username() {
         return _username;
     }
 
-    public boolean registerUser(String username, String pwd) {
+    public void registerUser(String username, String pwd) {
         try {
             Connection conn = DBConnection.getInstance().getConnection();
             PreparedStatement ps;
@@ -34,7 +34,7 @@ public class User {
             ResultSet rs = ps.executeQuery();
             ps.close();
             if (!rs.next() || rs.getInt(1) > 0){
-                return false;
+                return;
             }
             // no admin rights/ no token security (yet)
             /*if (username.equals("admin")){
@@ -48,11 +48,11 @@ public class User {
             int affectedRows = ps.executeUpdate();
             ps.close();
             conn.close();
-            return affectedRows != 0;
+            return;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
     }
 
     public boolean loginUser(String username, String pwd){
